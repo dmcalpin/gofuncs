@@ -172,6 +172,17 @@ func (s *ListSuite) TestFilterShortStrings() {
 	s.Require().Equal(List[string]{"walks", "park"}, updatedList)
 }
 
+func (s *ListSuite) TestFill() {
+	strList := List[string]{"a", "dog", "walks", "to", "the", "park"}
+
+	updatedList := strList.Fill("[redacted]", 3, 6)
+
+	s.Require().Equal(
+		List[string]{"a", "dog", "walks", "[redacted]", "[redacted]", "[redacted]"},
+		updatedList,
+	)
+}
+
 func TestList(t *testing.T) {
 	suite.Run(t, new(ListSuite))
 }

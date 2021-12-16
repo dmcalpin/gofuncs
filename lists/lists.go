@@ -98,3 +98,17 @@ func (l List[T]) Filter(f func(T) bool) List[T] {
 
 	return tmp
 }
+
+// Fill fills the List with val starting at start,
+// ending at one before end. This allows for
+// easy use of cap(myList) or len(myList).
+func (l List[T]) Fill(val T, start, end int) List[T] {
+	tmp := make(List[T], len(l))
+	copy(tmp, l)
+
+	for i := start; i < end; i++ {
+		tmp[i] = val
+	}
+
+	return tmp
+}
