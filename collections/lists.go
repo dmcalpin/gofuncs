@@ -1,4 +1,4 @@
-package lists
+package collections
 
 // List is a slice of anything,
 // from which you can call many

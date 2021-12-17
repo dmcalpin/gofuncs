@@ -1,4 +1,4 @@
-package lists
+package collections
 
 import (
 	"testing"
@@ -210,6 +210,6 @@ func (s *listSuite) TestReverse() {
 	)
 }
 
-func TestList(t *testing.T) {
+func TestListSuite(t *testing.T) {
 	suite.Run(t, new(listSuite))
 }
