@@ -6,19 +6,19 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type ListSuite struct {
+type listSuite struct {
 	suite.Suite
 
 	strList List[string]
 	intList List[int]
 }
 
-func (s *ListSuite) SetupTest() {
+func (s *listSuite) SetupTest() {
 	s.strList = List[string]{"str1", "str2"}
 	s.intList = List[int]{23, 45}
 }
 
-func (s *ListSuite) TestIsGeneric() {
+func (s *listSuite) TestIsGeneric() {
 	s.Require().Equal("str1", s.strList[0])
 	s.Require().Equal("str2", s.strList[1])
 
@@ -26,7 +26,7 @@ func (s *ListSuite) TestIsGeneric() {
 	s.Require().Equal(45, s.intList[1])
 }
 
-func (s *ListSuite) TestForEachStrings() {
+func (s *listSuite) TestForEachStrings() {
 	allStrs := ""
 
 	s.strList.ForEach(func(s string) {
@@ -36,7 +36,7 @@ func (s *ListSuite) TestForEachStrings() {
 	s.Require().Equal("str1|str2|", allStrs)
 }
 
-func (s *ListSuite) TestForEachInts() {
+func (s *listSuite) TestForEachInts() {
 	sum := 0
 
 	s.intList.ForEach(func(i int) {
@@ -46,7 +46,7 @@ func (s *ListSuite) TestForEachInts() {
 	s.Require().Equal(68, sum)
 }
 
-func (s *ListSuite) TestForEachIsChainable() {
+func (s *listSuite) TestForEachIsChainable() {
 	sum := 0
 
 	s.intList.
@@ -60,7 +60,7 @@ func (s *ListSuite) TestForEachIsChainable() {
 	s.Require().Equal(72, sum)
 }
 
-func (s *ListSuite) TestMapStrings() {
+func (s *listSuite) TestMapStrings() {
 	updatedList := s.strList.Map(func(s string) string {
 		return "mapped: " + s
 	})
@@ -68,7 +68,7 @@ func (s *ListSuite) TestMapStrings() {
 	s.Require().Equal(List[string]{"mapped: str1", "mapped: str2"}, updatedList)
 }
 
-func (s *ListSuite) TestMapInts() {
+func (s *listSuite) TestMapInts() {
 	updatedList := s.intList.Map(func(i int) int {
 		return i * 2
 	})
@@ -76,7 +76,7 @@ func (s *ListSuite) TestMapInts() {
 	s.Require().Equal(List[int]{46, 90}, updatedList)
 }
 
-func (s *ListSuite) TestMapIsChainable() {
+func (s *listSuite) TestMapIsChainable() {
 	updatedList := s.intList.
 		Map(func(i int) int {
 			return i * 2
@@ -88,7 +88,7 @@ func (s *ListSuite) TestMapIsChainable() {
 	s.Require().Equal(List[int]{4600, 9000}, updatedList)
 }
 
-func (s *ListSuite) TestSortStrings() {
+func (s *listSuite) TestSortStrings() {
 	strList := List[string]{"z", "w", "a", "b"}
 
 	ascList := strList.Sort(func(a, b string) bool {
@@ -104,7 +104,7 @@ func (s *ListSuite) TestSortStrings() {
 	s.Require().Equal(List[string]{"z", "w", "b", "a"}, descList)
 }
 
-func (s *ListSuite) TestSortInts() {
+func (s *listSuite) TestSortInts() {
 	intList := List[int]{2, 8, 21, 93, 2013, 92, 0}
 
 	updatedList := intList.Sort(func(a, b int) bool {
@@ -114,7 +114,7 @@ func (s *ListSuite) TestSortInts() {
 	s.Require().Equal(List[int]{0, 2, 8, 21, 92, 93, 2013}, updatedList)
 }
 
-func (s *ListSuite) TestSortIsChainable() {
+func (s *listSuite) TestSortIsChainable() {
 	strList := List[string]{"z", "w", "a", "b"}
 
 	updatedList := strList.
@@ -128,11 +128,11 @@ func (s *ListSuite) TestSortIsChainable() {
 	s.Require().Equal(List[string]{"aa", "bb", "ww", "zz"}, updatedList)
 }
 
-func (s *ListSuite) TestLen() {
+func (s *listSuite) TestLen() {
 	s.Require().Equal(2, s.strList.Len())
 }
 
-func (s *ListSuite) TestReduceSumInts() {
+func (s *listSuite) TestReduceSumInts() {
 	intList := List[int]{1, 2, 3, 4, 5}
 
 	reducedVal := intList.Reduce(func(prev, curr int) int {
@@ -142,7 +142,7 @@ func (s *ListSuite) TestReduceSumInts() {
 	s.Require().Equal(15, reducedVal)
 }
 
-func (s *ListSuite) TestReduceFlattenSlice() {
+func (s *listSuite) TestReduceFlattenSlice() {
 	intSliceList := List[[]int]{[]int{1, 2}, []int{3, 4}, []int{5, 6}}
 
 	reducedVal := intSliceList.Reduce(func(prev, curr []int) []int {
@@ -152,7 +152,7 @@ func (s *ListSuite) TestReduceFlattenSlice() {
 	s.Require().Equal([]int{1, 2, 3, 4, 5, 6}, reducedVal)
 }
 
-func (s *ListSuite) TestReduceNoElems() {
+func (s *listSuite) TestReduceNoElems() {
 	intList := List[int]{}
 
 	reducedVal := intList.Reduce(func(prev, curr int) int {
@@ -162,7 +162,7 @@ func (s *ListSuite) TestReduceNoElems() {
 	s.Require().Equal(23, reducedVal)
 }
 
-func (s *ListSuite) TestFilterShortStrings() {
+func (s *listSuite) TestFilterShortStrings() {
 	strList := List[string]{"a", "dog", "walks", "to", "the", "park"}
 
 	updatedList := strList.Filter(func(word string) bool {
@@ -172,7 +172,7 @@ func (s *ListSuite) TestFilterShortStrings() {
 	s.Require().Equal(List[string]{"walks", "park"}, updatedList)
 }
 
-func (s *ListSuite) TestFill() {
+func (s *listSuite) TestFill() {
 	strList := List[string]{"a", "dog", "walks", "to", "the", "park"}
 
 	updatedList := strList.Fill("[redacted]", 3, 6)
@@ -183,6 +183,33 @@ func (s *ListSuite) TestFill() {
 	)
 }
 
+func (s *listSuite) TestReverse() {
+	s.Require().Equal(
+		List[string]{},
+		List[string]{}.Reverse(),
+	)
+
+	s.Require().Equal(
+		List[string]{"a"},
+		List[string]{"a"}.Reverse(),
+	)
+
+	s.Require().Equal(
+		List[string]{"b", "a"},
+		List[string]{"a", "b"}.Reverse(),
+	)
+
+	s.Require().Equal(
+		List[int]{3, 2, 1},
+		List[int]{1, 2, 3}.Reverse(),
+	)
+
+	s.Require().Equal(
+		List[float64]{5.0, 4.0, 3.0, 2.0, 1.0},
+		List[float64]{1.0, 2.0, 3.0, 4.0, 5.0}.Reverse(),
+	)
+}
+
 func TestList(t *testing.T) {
-	suite.Run(t, new(ListSuite))
+	suite.Run(t, new(listSuite))
 }

@@ -112,3 +112,15 @@ func (l List[T]) Fill(val T, start, end int) List[T] {
 
 	return tmp
 }
+
+// Reverse returns a List with the items
+// in reverse order.
+func (l List[T]) Reverse() List[T] {
+	tmp := make(List[T], len(l))
+
+	for i, elem := range l {
+		tmp[len(l)-1-i] = elem
+	}
+
+	return tmp
+}
