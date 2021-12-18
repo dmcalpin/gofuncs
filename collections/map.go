@@ -39,7 +39,7 @@ func (m Map[T1, T2]) Values() []T2 {
 // in the map, if false, they are
 // removed
 func (m Map[T1, T2]) Filter(compare func(T1, T2) bool) Map[T1, T2] {
-	tmp := make(Map[T1, T2], len(m))
+	tmp := Map[T1, T2]{}
 
 	for k, v := range m {
 		if compare(k, v) {

@@ -42,8 +42,8 @@ func (s *mapSuite) TestFilter() {
 		"c": 3,
 	}
 
-	filteredMap := mp.Filter(func(a string, b int) bool {
-		return b%2 != 0
+	filteredMap := mp.Filter(func(key string, value int) bool {
+		return value%2 != 0
 	})
 
 	s.Require().Equal(Map[string, int]{
